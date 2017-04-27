@@ -9,6 +9,7 @@ from bs4 import BeautifulSoup
 from time import sleep
 import yagmail
 import smtplib
+import datetime
 
 class WindowsBalloonTip:
     def __init__(self, title, msg):
@@ -54,14 +55,16 @@ def balloon_tip(title, msg):
 if __name__ == '__main__':
     book_my_show_url = "https://in.bookmyshow.com/buytickets/baahubali-2-the-conclusion-hindi-chennai/movie-chen-ET00050679-MT/20170429"
     while True:
+        ltime=datetime.datetime.now()
         requester = urllib2.Request(book_my_show_url, headers={'User-Agent': "Magic Browser"})
         connector = urllib2.urlopen(requester)
         connector_reader = connector.read()
         soup = BeautifulSoup(connector_reader, "lxml")
         text = soup.get_text()
         if "PVR: Velachery, Chennai" in text:
-				balloon_tip("Jai Mahesmati", "Tickets are for sale dude!!! Hurry up/ndsfsdf sdf/nfsdfsdf/nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn")
+            print "Found at "+ltime.strftime("%X")
+            balloon_tip("Jai Mahesmati", "Tickets are for sale dude!!! Hurry up/ndsfsdf sdf/nfsdfsdf/nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn")
         else:
-            print "Nope yet"
-            sleep(30)
+            print "Nope yet Last checked at "+ltime.strftime("%X")
+            sleep(60)
   
